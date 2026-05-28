@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Bitter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { headers } from 'next/headers'
+import { Web3Provider } from '@/lib/web3/context'
 import './globals.css'
 
 const nunito = Nunito({ 
@@ -44,15 +46,20 @@ export const viewport: Viewport = {
   themeColor: '#4a7c59',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const cookies = headersList.get('cookie')
+
   return (
     <html lang="pt-BR" className={`${nunito.variable} ${bitter.variable} bg-background`}>
       <body className="font-sans antialiased min-h-screen">
-        {children}
+        <Web3Provider cookies={cookies}>
+          {children}
+        </Web3Provider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

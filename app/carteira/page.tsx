@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { getWallet, getMyActions, getMyRedemptions } from '@/app/actions/raiz'
 import { BottomNav } from '@/components/bottom-nav'
 import { ActionCard } from '@/components/action-card'
+import { Web3WalletSection } from '@/components/web3-wallet-section'
 import { 
   Sprout, 
   TrendingUp, 
@@ -32,8 +33,12 @@ export default async function WalletPage() {
         </h1>
       </header>
 
-      {/* Balance Card */}
+      {/* Balance Card - Off-chain */}
       <section className="px-5 mb-6">
+        <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
+          <Sprout className="w-4 h-4" />
+          Saldo no App
+        </h3>
         <div className="bg-primary rounded-2xl p-6 text-primary-foreground">
           <p className="text-sm opacity-80 mb-1">Saldo disponível</p>
           <div className="flex items-center gap-3 mb-4">
